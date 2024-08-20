@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi3t6ayabeqrd"]
+[gd_scene load_steps=6 format=3 uid="uid://bi3t6ayabeqrd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_7ub8s"]
 [ext_resource type="Texture2D" uid="uid://nl648lyea237" path="res://dot.png" id="2_7v8uc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_miftb"]
 radius = 20.025
+
+[sub_resource type="Curve" id="Curve_n0ty0"]
+_data = [Vector2(0.0280899, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.384615), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_g2rdn"]
+_data = [Vector2(0, 0.10989), 0.0, 0.0, 0, 0, Vector2(0.294737, 0.615385), -1.61339, -1.61339, 0, 0, Vector2(0.531579, 0.593407), 0.0, 0.0, 0, 0, Vector2(0.994737, 0.054945), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 position = Vector2(204, 71)
@@ -23,3 +31,47 @@ texture = ExtResource("2_7v8uc")
 shape = SubResource("CircleShape2D_miftb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.7
+randomness = 0.04
+lifetime_randomness = 0.92
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 98)
+initial_velocity_min = 424.24
+initial_velocity_max = 424.24
+angular_velocity_min = -290.91
+angular_velocity_max = 720.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_n0ty0")
+
+[node name="setroka" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+texture = ExtResource("2_7v8uc")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+angular_velocity_min = 1.0
+angular_velocity_max = 5.0
+orbit_velocity_min = 0.2
+orbit_velocity_max = 0.5
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_g2rdn")

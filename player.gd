@@ -14,9 +14,12 @@ func _physics_process(delta: float) -> void:
 		vect.y = -speed;
 	elif (Input.is_action_pressed("down")):
 		vect.y = speed;
+	if (Input.is_action_just_pressed("particles")):
+		$particles.emitting = true;
+		$setroka.emitting = true;
 	velocity = vect;
-		
-		
-
 	move_and_slide()
 	look_at(mouse_pos);
+	if (get_slide_collision_count()):
+		pass
+		
