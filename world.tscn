@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://big8g23bbh13f"]
+[gd_scene load_steps=10 format=3 uid="uid://big8g23bbh13f"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_b66w0"]
 [ext_resource type="PackedScene" uid="uid://yh4lqch7kb3k" path="res://bullet.tscn" id="2_ck26v"]
 [ext_resource type="PackedScene" uid="uid://bi3t6ayabeqrd" path="res://player.tscn" id="2_r1wja"]
+[ext_resource type="PackedScene" uid="uid://dlc40amft4jqr" path="res://saut_particles.tscn" id="2_txmkw"]
+[ext_resource type="Texture2D" uid="uid://binxt21xnivt1" path="res://assets/square.png" id="4_qece4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdujf"]
 size = Vector2(1186, 20)
@@ -15,21 +17,48 @@ dof_blur_far_distance = 0.06
 dof_blur_far_transition = 91.24
 dof_blur_near_enabled = true
 
+[sub_resource type="Curve" id="Curve_o18we"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_b66w0")
+jump_particles = ExtResource("2_txmkw")
 bullet = ExtResource("2_ck26v")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_r1wja")]
-scale = Vector2(0.995313, 1)
-disable_mode = 2
+[node name="floor" type="StaticBody2D" parent="."]
 
-[node name="RigidBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(584, 29)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(576, 640)
 scale = Vector2(0.983517, 0.972601)
 shape = SubResource("RectangleShape2D_sdujf")
+
+[node name="Sprite2D" type="Sprite2D" parent="floor/CollisionShape2D"]
+position = Vector2(3.81284, 22.6196)
+scale = Vector2(0.298056, 0.0153497)
+texture = ExtResource("4_qece4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ha7nw")
 camera_attributes = SubResource("CameraAttributesPractical_3slr5")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_r1wja")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(574, 339)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(639, 9)
+amount = 500
+lifetime = 3.0
+explosiveness = 0.05
+randomness = 0.9
+emission_shape = 3
+emission_rect_extents = Vector2(900, 1)
+direction = Vector2(100, 100)
+gravity = Vector2(-1000, 2000)
+orbit_velocity_min = -0.1
+scale_amount_min = 0.1
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_o18we")
+color = Color(0.615686, 1, 1, 1)

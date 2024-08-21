@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlc40amft4jqr"]
+
+[sub_resource type="Curve" id="Curve_li3ve"]
+_data = [Vector2(0, 0.967033), 0.0, 0.0, 0, 0, Vector2(0.989474, 0.10989), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="sautParticles" type="CPUParticles2D"]
+position = Vector2(0, 2)
+rotation = 4.71239
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.93
+randomness = 0.97
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(0, 20)
+spread = 19.54
+initial_velocity_min = 282.83
+initial_velocity_max = 626.26
+angular_velocity_min = -720.0
+angular_velocity_max = 581.82
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_li3ve")

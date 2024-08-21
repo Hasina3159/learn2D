@@ -1,3 +1,7 @@
 res://player.tscn
 res://world.tscn
-res://player.gd
+res://saut_particles.tscn
+res://bullet.tscn
+res://trail_2d.tscn
+res://node_2d.gd
+res://bullet_particles.tscn
