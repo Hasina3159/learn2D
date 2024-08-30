@@ -1,25 +1,25 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -1000.0
-	
+@export var speed = 200;
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta * 2
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		$AnimationPlayer.play("jump");
-		velocity.y = JUMP_VELOCITY
-		
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	var mouse_pos = get_global_mouse_position();
+	var vect = Vector2.ZERO;
+	if (Input.is_action_pressed("left")):
+		vect.x = -speed;
+	elif (Input.is_action_pressed("right")):
+		vect.x = speed;
+	if (Input.is_action_pressed("up")):
+		vect.y = -speed;
+	elif (Input.is_action_pressed("down")):
+		vect.y = speed;
+	if (Input.is_action_just_pressed("particles")):
+		$particles.emitting = true;
+		$setroka.emitting = true;
+	velocity = vect;
 	move_and_slide()
-	
-		#new_jump_particle.emitting = true;
+	look_at(mouse_pos);
+	if (get_slide_collision_count()):
+		pass
 		
